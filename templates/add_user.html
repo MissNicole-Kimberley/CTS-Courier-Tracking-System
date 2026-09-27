@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Add New User</h2>
+<form method="post" class="form">
+  <input name="username" placeholder="Username" required>
+  <input type="password" name="password" placeholder="Password" required>
+  <select name="role" required>
+    <option value="Employee">Employee</option>
+    <option value="Manager">Manager</option>
+  </select>
+  <button type="submit">Create User</button>
+</form>
+
+{% with messages = get_flashed_messages() %}
+  {% for m in messages %}<p>{{ m }}</p>{% endfor %}
+{% endwith %}
+{% endblock %}

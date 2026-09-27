@@ -1,0 +1,84 @@
+{% extends "base_dashboard.html" %}
+
+{% block title %}Manager Reports{% endblock %}
+
+{% block sidebar %}
+  <li><a href="{{ url_for('manager') }}">📊 Dashboard</a></li>
+  <li><a href="{{ url_for('view_customers') }}">👥 Customers</a></li>
+  <li><a href="{{ url_for('view_shipments') }}">📦 Shipments</a></li>
+  <li><a href="{{ url_for('view_employees') }}">💼 Employees</a></li>
+  <li><a href="{{ url_for('manager_reports') }}" class="active">📑 Reports</a></li>
+{% endblock %}
+
+{% block content %}
+  <h2>📑 Manager Reports</h2>
+
+  <div class="card">
+    <h3>👥 User Role Summary</h3>
+    <ul>
+      {% for role, count in user_counts.items() %}
+      <li><b>{{ role }}</b>: {{ count }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>📦 Parcel Status Summary</h3>
+    <ul>
+      {% for status, count in status_counts.items() %}
+      <li><b>{{ status }}</b>: {{ count }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>📋 All Parcels</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Tracking #</th>
+          <th>Sender</th>
+          <th>Receiver</th>
+          <th>Status</th>
+          <th>Last Update</th>
+          <th>Location</th>
+          <th>Date Sent</th>
+          <th>Cost of Items</th>
+          <th>Weight (kg)</th>
+          <th>Description</th>
+          <th>Parcel Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in parcels %}
+        <tr>
+          <td>{{ p.tracking_number }}</td>
+          <td>{{ p.sender }}</td>
+          <td>{{ p.receiver }}</td>
+          <td>{{ p.status }}</td>
+          <td>{{ p.last_update }}</td>
+          <td>{{ p.location }}</td>
+          <td>{{ p.date_sent }}</td>
+          <td>{{ p.cost_of_items }}</td>
+          <td>{{ p.weight }}</td>
+          <td>{{ p.description }}</td>
+          <td>{{ p.parcel_price }}</td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="11">No parcels available.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <a href="{{ url_for('manager_reports_pdf') }}" class="btn">⬇ Download as PDF</a>
+
+<!-- Download PDF Report -->
+<div style="margin-top:20px;">
+  <a href="{{ url_for('manager_reports_pdf') }}" class="btn btn-login" target="_blank">
+    📑 Download PDF Report
+  </a>
+</div>
+{% endblock %}

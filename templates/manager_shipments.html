@@ -1,0 +1,53 @@
+{% extends "base_dashboard.html" %}
+
+{% block title %}Shipments{% endblock %}
+
+{% block sidebar %}
+  <li><a href="{{ url_for('manager') }}">📊 Dashboard</a></li>
+  <li><a href="{{ url_for('view_customers') }}">👥 Customers</a></li>
+  <li><a href="{{ url_for('view_employees') }}">💼 Employees</a></li>
+  <li><a href="{{ url_for('view_shipments') }}" class="active">📦 Shipments</a></li>
+  <li><a href="{{ url_for('manager_reports') }}">📑 Reports</a></li>
+{% endblock %}
+
+{% block content %}
+  <h2>📦 Shipments</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Tracking #</th>
+        <th>Sender</th>
+        <th>Receiver</th>
+        <th>Status</th>
+        <th>Last Update</th>
+        <th>Location</th>
+        <th>Date Sent</th>
+        <th>Cost of Items</th>
+        <th>Weight (kg)</th>
+        <th>Description</th>
+        <th>Parcel Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for parcel in parcels %}
+      <tr>
+        <td>{{ parcel['tracking_number'] }}</td>
+        <td>{{ parcel['sender'] }}</td>
+        <td>{{ parcel['receiver'] }}</td>
+        <td>{{ parcel['status'] }}</td>
+        <td>{{ parcel['last_update'] }}</td>
+        <td>{{ parcel['location'] }}</td>
+        <td>{{ parcel['date_sent'] }}</td>
+        <td>{{ parcel['cost_of_items'] }}</td>
+        <td>{{ parcel['weight'] }}</td>
+        <td>{{ parcel['description'] }}</td>
+        <td>{{ parcel['parcel_price'] }}</td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="11">No parcels available.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

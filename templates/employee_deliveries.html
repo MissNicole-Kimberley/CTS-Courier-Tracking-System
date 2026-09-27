@@ -1,0 +1,48 @@
+{% extends "base_dashboard.html" %}
+
+{% block title %}Today's Deliveries{% endblock %}
+
+{% block sidebar %}
+<li><a href="{{ url_for('employee') }}">📋 Dashboard</a></li>
+<li><a href="{{ url_for('view_deliveries') }}" class="active">📦 Today's Deliveries</a></li>
+<li><a href="{{ url_for('view_newparcel') }}">➕ Add New Parcel</a></li>
+<li><a href="{{ url_for('view_updates') }}">📝 Update Parcel Status & View All Parcels</a></li>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+  <h2>🚚 Today's Deliveries</h2>
+  <p>Welcome, <b>{{ username }}</b></p>
+
+  {% if deliveries %}
+    <div class="card">
+      <h3>📦 Delivery List</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Tracking Number</th>
+            <th>Receiver</th>
+            <th>Location</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for delivery in deliveries %}
+          <tr>
+            <td>{{ delivery.tracking_number }}</td>
+            <td>{{ delivery.receiver }}</td>
+            <td>{{ delivery.location }}</td>
+            <td>{{ delivery.status }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="card">
+      <h3>📦 No Deliveries Today</h3>
+      <p>There are no deliveries scheduled for today.</p>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

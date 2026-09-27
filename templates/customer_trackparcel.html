@@ -1,0 +1,31 @@
+{% extends "base_dashboard.html" %}
+
+{% block title %}Track Parcel{% endblock %}
+
+{% block sidebar %}
+  <li><a href="{{ url_for('customer') }}">🏠 Dashboard</a></li>
+  <li><a href="{{ url_for('view_myshipments') }}">📦 My Shipments</a></li>
+  <li><a href="{{ url_for('view_trackparcel') }}" class="active">✉️ Track Parcel</a></li>
+{% endblock %}
+
+{% block content %}
+<!-- Track Parcel -->
+<div class="card">
+    <h3>🔍 Track a Parcel</h3>
+    <form method="post" class="form-inline">
+      <input type="text" name="tracking_number" placeholder="Enter Tracking Number" required>
+      <button type="submit">Track</button>
+    </form>
+
+    {% if tracked %}
+    <div class="result">
+      <p><b>Tracking Number:</b> {{ tracked['tracking_number'] }}</p>
+      <p><b>Sender:</b> {{ tracked['sender'] }}</p>
+      <p><b>Receiver:</b> {{ tracked['receiver'] }}</p>
+      <p><b>Status:</b> {{ tracked['status'] }}</p>
+      <p><b>Last Update:</b> {{ tracked['last_update'] }}</p>
+    </div>
+    {% endif %}
+  </div>
+
+  {% endblock %}

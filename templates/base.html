@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTS Courier</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-messages">
+          {% for category, msg in messages %}
+            <div class="flash {{ category }}">{{ msg }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <!-- Sidebar (hidden on login/register/welcome) -->
+    {% if session.get('role') %}
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="CTS Logo" class="sidebar-logo">
+            <button onclick="toggleSidebar()" class="toggle-btn">☰</button>
+        </div>
+        <ul class="sidebar-menu">
+            {% if session['role'] == 'Customer' %}
+                <li><a href="{{ url_for('customer') }}">📦 My Parcels</a></li>
+                <li><a href="{{ url_for('logout') }}">🚪 Logout</a></li>
+            {% elif session['role'] == 'Employee' %}
+                <li><a href="{{ url_for('employee') }}">📋 Manage Parcels</a></li>
+                <li><a href="{{ url_for('logout') }}">🚪 Logout</a></li>
+            {% elif session['role'] == 'Manager' %}
+                <li><a href="{{ url_for('manager') }}">📊 Reports</a></li>
+                <li><a href="{{ url_for('logout') }}">🚪 Logout</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+
+    <!-- Main Content -->
+    <main class="main-content" id="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("collapsed");
+            document.getElementById("main-content").classList.toggle("expanded");
+        }
+    </script>
+</body>
+</html>

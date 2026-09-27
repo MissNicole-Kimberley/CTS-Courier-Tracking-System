@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Dashboard - CTS Courier{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://kit.fontawesome.com/a2e0e9c6a4.js" crossorigin="anonymous"></script>
+</head>
+<body class="dashboard-body">
+
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <img src="{{ url_for('static', filename='logo.png') }}" alt="CTS Courier" class="sidebar-logo">
+      <h2>CTS Courier</h2>
+    </div>
+    <ul class="sidebar-nav">
+      {% block sidebar %}
+      <!-- Each dashboard injects its own links -->
+      {% endblock %}
+    </ul>
+    <div class="sidebar-footer">
+      <a href="{{ url_for('logout') }}" class="btn btn-logout">🚪 Logout</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <header class="topbar">
+      <h1>{% block header %}Dashboard{% endblock %}</h1>
+      <p class="user-info">👤 {{ session['username'] }} ({{ session['role'] }})</p>
+    </header>
+
+    <section class="content-area">
+      {% block content %}
+      <!-- Dashboard content goes here -->
+      {% endblock %}
+    </section>
+  </div>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="flash-messages">
+      {% for category, msg in messages %}
+        <div class="flash {{ category }}">{{ msg }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+</body>
+</html>

@@ -1,0 +1,22 @@
+{% extends "base_dashboard.html" %}
+
+{% block title %}Customer Dashboard{% endblock %}
+
+{% block sidebar %}
+  <li><a href="{{ url_for('customer') }}">🏠 Dashboard</a></li>
+  <li><a href="{{ url_for('view_myshipments') }}">📦 My Shipments</a></li>
+  <li><a href="{{ url_for('view_trackparcel') }}">✉️ Track Parcel</a></li>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+  <h2>👤 Customer Dashboard</h2>
+  <p>Welcome, <b>{{ username }}</b> Track All Your Parcels Here</p>
+
+  <!-- Summary Cards -->
+  <div class="cards">
+    <div class="card">Pending Shipments: <b>{{ pending_count }}</b></div>
+    <div class="card">Delivered Shipments: <b>{{ delivered_count }}</b></div>
+    <div class="card">In Transit: <b>{{ in_transit_count }}</b></div>
+  </div>
+{% endblock %}

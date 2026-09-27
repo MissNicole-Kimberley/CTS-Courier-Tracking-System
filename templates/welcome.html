@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="welcome-container">
+    <!-- Big Logo -->
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="CTS Courier" class="welcome-logo">
+
+    <!-- Welcome Title -->
+    <h1 class="welcome-title">Welcome to CTS Courier's Tracking & Management System</h1>
+    <p class="welcome-subtitle">Fast • Reliable • Secure</p>
+
+    <!-- Buttons -->
+    <div class="welcome-buttons">
+        <a href="{{ url_for('login') }}" class="btn btn-login">🚪 Login</a>
+        <a href="{{ url_for('register') }}" class="btn btn-register">📝 Register</a>
+    </div>
+
+    <!-- Overview Features -->
+    <div class="welcome-overview">
+        <div class="overview-item">
+            <h3>📦 Customers Track Parcels</h3>
+            <p>Enter your tracking number and get live updates about your deliveries.</p>
+        </div>
+        <div class="overview-item">
+            <h3>📝 Employees Manage Parcels</h3>
+            <p>Securely add, update, and process parcels for customers.</p>
+        </div>
+        <div class="overview-item">
+            <h3>📊 Managers Monitor Performance</h3>
+            <p>Gain insights, download reports, and view full system statistics in one place.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

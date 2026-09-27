@@ -1,0 +1,61 @@
+{% extends "base_dashboard.html" %}
+
+{% block title %}Manager Dashboard{% endblock %}
+
+{% block sidebar %}
+  <li><a href="{{ url_for('manager') }}" class="active">📊 Dashboard</a></li>
+  <li><a href="{{ url_for('view_customers') }}">👥 Customers</a></li>
+  <li><a href="{{ url_for('view_shipments') }}">📦 Shipments</a></li>
+  <li><a href="{{ url_for('view_employees') }}">💼 Employees</a></li>
+  <li><a href="{{ url_for('manager_reports') }}">📑 Reports</a></li>
+{% endblock %}
+
+{% block content %}
+  <h2>📊 Manager Dashboard</h2>
+  <p>Welcome, <b>{{ username }}</b> Monitor The System Here</p>
+
+  <!-- Highlight Cards -->
+  <div class="cards">
+    <div class="card highlight">
+      <h3>👥 Customers</h3>
+      <p>{{ user_counts.get('Customer', 0) }}</p>
+    </div>
+    <div class="card highlight">
+      <h3>💼 Employees</h3>
+      <p>{{ user_counts.get('Employee', 0) }}</p>
+    </div>
+    <div class="card highlight">
+      <h3>📦 Active Shipments</h3>
+      <p>{{ status_counts.get('In Transit', 0) }}</p>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="quick-actions">
+    <h3>⚡ Quick Actions</h3>
+    <div class="action-buttons">
+      <a href="{{ url_for('view_customers') }}" class="btn-action">👥 View Customers</a>
+      <a href="{{ url_for('view_employees') }}" class="btn-action">💼 ViewEmployees</a>
+      <a href="{{ url_for('view_shipments') }}" class="btn-action">📦 View Shipments</a>
+    </div>
+  </div>
+
+ <!-- Recent Activity -->
+<div class="recent-activity">
+  <h3>🕒 Recent Activity</h3>
+  <ul>
+    {% for a in activities %}
+      <li>{{ a["timestamp"] }} – {{ a["message"] }}</li>
+    {% else %}
+      <li>No recent activity.</li>
+    {% endfor %}
+  </ul>
+</div>
+
+  <!-- System Health -->
+  <div class="system-health">
+    <h3>✅ System Health</h3>
+    <p>✔ Database connected</p>
+    <p>✔ All services running smoothly</p>
+  </div>
+{% endblock %}

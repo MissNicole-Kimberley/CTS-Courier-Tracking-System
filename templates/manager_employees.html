@@ -1,0 +1,33 @@
+{% extends "base_dashboard.html" %}
+
+{% block title %}Employees{% endblock %}
+
+{% block sidebar %}
+  <li><a href="{{ url_for('manager') }}">📊 Dashboard</a></li>
+  <li><a href="{{ url_for('view_customers') }}">👥 Customers</a></li>
+  <li><a href="{{ url_for('view_employees') }}" class="active">💼 Employees</a></li>
+  <li><a href="{{ url_for('view_shipments') }}">📦 Shipments</a></li>
+  <li><a href="{{ url_for('manager_reports') }}">📑 Reports</a></li>
+{% endblock %}
+
+{% block content %}
+  <h2>💼 Employees</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Password</th>
+        <th>Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for employee in employees %}
+      <tr>
+        <td>{{ employee['username'] }}</td>
+        <td>{{ employee['password'] }}</td>
+        <td>{{ employee['role'] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

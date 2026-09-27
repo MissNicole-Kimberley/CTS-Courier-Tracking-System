@@ -1,0 +1,43 @@
+{% extends "base_dashboard.html" %}
+
+{% block title %}Add New Parcel{% endblock %}
+
+{% block sidebar %}
+<li><a href="{{ url_for('employee') }}">📋 Dashboard</a></li>
+<li><a href="{{ url_for('view_deliveries') }}">📦 Today's Deliveries</a></li>
+<li><a href="{{ url_for('view_newparcel') }}" class="active">➕ Add New Parcel</a></li>
+<li><a href="{{ url_for('view_updates') }}">📝 Update Parcel Status & View All Parcels</a></li>
+{% endblock %}
+
+{% block content %}
+<!-- Add New Parcel -->
+<div class="card">
+    <h3>➕ Add New Parcel</h3>
+    <form method="POST" class="form-inline">
+      <input type="hidden" name="action" value="add">
+      <input type="text" name="tracking_number" placeholder="Tracking Number" required>
+      
+      <!-- Sender dropdown (Customer usernames) -->
+  <select name="sender" required>
+    <option value="">-- Select Sender (Customer) --</option>
+    {% for customer in customers %}
+      <option value="{{ customer['username'] }}">{{ customer['username'] }}</option>
+    {% endfor %}
+  </select>
+
+      <!-- Receiver dropdown (Customer usernames) -->
+  <select name="receiver" required>
+    <option value="">-- Select Receiver (Customer) --</option>
+    {% for customer in customers %}
+      <option value="{{ customer['username'] }}">{{ customer['username'] }}</option>
+    {% endfor %}
+  </select>
+      <input type="text" name="location" placeholder="Location">
+      <input type="number" step="0.01" name="cost_of_items" placeholder="Cost of Items">
+      <input type="number" step="0.01" name="weight" placeholder="Weight (kg)">
+      <input type="text" name="description" placeholder="Description">
+      <input type="number" step="0.01" name="parcel_price" placeholder="Parcel Price">
+      <button type="submit">➕ Add Parcel</button>
+    </form>    
+  </div>
+{% endblock %}
